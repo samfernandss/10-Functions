@@ -41,3 +41,37 @@ const greet = (greeting) => {
 
 greet('Hi')('Sam');
 greet('Hello')('Emma');
+
+// this keyword in event listener
+const lufthansa = {
+    airline: 'Lufthansa',
+    iatacode: 'LH',
+    bookings: [],
+    book(flightNum, name) {
+        console.log(`${name} booked a seat on ${this.airline} flight ${this.iatacode}${flightNum}`);
+        this.bookings.push({flight: `${this.iatacode}${flightNum}`, name});
+    }
+}
+
+const eurowings = {
+    airline: 'Eurowings',
+    iatacode: 'EW',
+    bookings: []
+}
+
+const book = lufthansa.book;
+book.call(lufthansa, 25, 'Felipe');
+book.call(eurowings, 15, 'Emma');
+
+lufthansa.book(456, 'Sam');
+console.log(lufthansa);
+
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+    //console.log(this);
+    this.planes++;
+
+    console.log(this.planes);
+}
+
+document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
