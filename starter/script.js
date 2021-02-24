@@ -49,7 +49,7 @@ const lufthansa = {
     bookings: [],
     book(flightNum, name) {
         console.log(`${name} booked a seat on ${this.airline} flight ${this.iatacode}${flightNum}`);
-        this.bookings.push({flight: `${this.iatacode}${flightNum}`, name});
+        this.bookings.push({ flight: `${this.iatacode}${flightNum}`, name });
     }
 }
 
@@ -75,3 +75,22 @@ lufthansa.buyPlane = function () {
 }
 
 document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+// Partial application
+const addTax = (rate, value) => {
+    return value + value * rate;
+}
+
+const addVAT = addTax.bind(null, 0.23);
+
+console.log(addVAT(100));
+
+// using return function
+const addTaxVAT = function (rate) {
+    return function (value) {
+        console.log(value + value * rate);
+    }
+}
+
+const addVAT2 = addTaxVAT(0.23);
+addVAT2(100);
